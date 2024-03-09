@@ -1,5 +1,5 @@
 // api/auth/signup/route.ts
-
+import jwt from 'jsonwebtoken';
 import connectToDatabase from "@/utils/mongodb";
 
 export async function POST(request: Request) {
@@ -16,6 +16,14 @@ export async function POST(request: Request) {
       username: data.Username,
       password: data.Password,
     });
+    const token = jwt.sign(
+      { username: data.Username }, // Payload
+      process.env.JWT_SECRET, // Secret
+      { expiresIn: '1h' } // Expiration
+    );
+    
+    return new Response(JSON.stringify({ message: 'User registered successfully', token }), { status: 200 });
+    
 
     return Response.json({ message: 'User registered successfully', insertedId: result.insertedId });
   } catch (error) {
@@ -23,3 +31,4 @@ export async function POST(request: Request) {
     return Response.json({ error: 'Failed to register user' });
   }
 }
+
