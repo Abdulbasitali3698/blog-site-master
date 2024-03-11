@@ -16,15 +16,6 @@ export async function POST(request: Request) {
       username: data.Username,
       password: data.Password,
     });
-    const token = jwt.sign(
-      { username: data.Username }, // Payload
-      process.env.JWT_SECRET, // Secret
-      { expiresIn: '1h' } // Expiration
-    );
-    
-    return new Response(JSON.stringify({ message: 'User registered successfully', token }), { status: 200 });
-    
-
     return Response.json({ message: 'User registered successfully', insertedId: result.insertedId });
   } catch (error) {
     console.error('Error:', error);
