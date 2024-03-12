@@ -7,6 +7,7 @@ export default function SignIn() {
     const[Username,setUserName]=useState("");
     const[Password,setPassWord]=useState("");
     const[response,setResponse]=useState(null);
+    const [token, setToken] = useState("");
     const handleSubmit=async (e:{preventDefault:()=>void;})=>{
         e.preventDefault();
         try {
@@ -18,6 +19,10 @@ export default function SignIn() {
             setResponse(response.data);
             setUserName("");
             setPassWord("");
+            // If sign-in is successful, store the JWT token
+            if (response.data.token) {
+                setToken(response.data.token);
+            }
 
         } catch (error) {
             console.error("Error:",error)
@@ -50,7 +55,7 @@ export default function SignIn() {
                             <div className="row">
                                 <div className="col">
                                     <div className="form-floating mb-3 ">
-                                        <input type="text" className="form-control" value={Password} placeholder="Password" onChange={(e)=>setPassWord(e.target.value)}/>
+                                        <input type="password" className="form-control" value={Password} placeholder="Password" onChange={(e)=>setPassWord(e.target.value)}/>
                                         <label htmlFor="password">Password</label>
                                     </div>
                                 </div>
@@ -72,6 +77,13 @@ export default function SignIn() {
                         <pre>{JSON.stringify(response, null, 2)}</pre>
                         </div>
                         )}
+                        {/* Display the token if available */}
+            {token && (
+                <div>
+                    <h2>JWT Token:</h2>
+                    <pre>{token}</pre>
+                </div>
+            )}
     </form>
     
   )
