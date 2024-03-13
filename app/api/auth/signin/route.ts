@@ -9,7 +9,7 @@ const client = new MongoClient(uri);
 export async function POST(request: Request) {
     try {
         await client.connect();
-        const db = client.db('your_database_name');
+        const db = client.db('blog-form');
         const collection = db.collection('users');
 
         const data = await request.json();
