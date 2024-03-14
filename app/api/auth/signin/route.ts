@@ -13,14 +13,14 @@ export async function POST(request: Request) {
         const collection = db.collection('users');
 
         const data = await request.json();
-        const { username, password } = data;
+        const { Username, Password } = data;
 
         // Find user by username
-        const user = await collection.findOne({ username });
+        const user = await collection.findOne({ Username });
 
         if (user) {
             // Compare passwords
-            const passwordMatch = await bcrypt.compare(password, user.password);
+            const passwordMatch = await bcrypt.compare(Password, user.password);
 
             if (passwordMatch) {
                 // Generate JWT token
