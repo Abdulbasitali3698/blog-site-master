@@ -61,6 +61,12 @@ export default function SignUp(){
                                     </div>
                                 </div>
                             </div>
+                            <div>
+                                <div>
+                                <input type="userame" className="form-control" value="email" placeholder="Email" onChange={(e)=>setUserName(e.target.value)}/>
+                                        <label htmlFor="username">Email</label>
+                                </div>
+                            </div>
                             <div className="row">
                                 <div className="col">
                                     <div className="form-floating mb-3 ">
